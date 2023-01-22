@@ -1,6 +1,6 @@
 name: GitHub Deployments
 description: GitHub action for working painlessly with deployment statuses.
-author: bobheadxi
+author: implydata
 branding:
   icon: bookmark
   color: yellow
@@ -35,7 +35,7 @@ inputs:
   debug:
     required: false
     description: Print arguments used by this action and other debug information.
-    default: 'false'
+    default: "false"
 
   deployment_id:
     required: false
@@ -46,13 +46,9 @@ inputs:
   status:
     required: false
     description: The deployment status (for `finish` only)
-  override:
+  auto_deactivate:
     required: false
     description: Whether to manually mark existing deployments of this environment as inactive (for `start` and `finish` only)
-  auto_inactive:
-    required: false
-    description: Whether to mark existing deployments as inactive if a deployment succeeds (for `finish` only)
-    default: 'false'
   payload:
     required: false
     description: JSON-formatted dictionary with extra information about the deployment (for `start` only)

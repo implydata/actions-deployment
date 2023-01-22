@@ -4,11 +4,10 @@ import { DeploymentContext } from "../lib/context";
 import deactivateEnvironment from "../lib/deactivate";
 
 export type FinishArgs = {
+  autoDeactivate: boolean;
   deploymentID: string;
-  override: boolean;
   status: string;
   envURL?: string;
-  autoInactive: boolean;
 };
 
 async function createFinish(
@@ -20,7 +19,7 @@ async function createFinish(
     log,
     coreArgs: { description, logsURL },
   } = context;
-  if (stepArgs.override) {
+  if (stepArgs.autoDeactivate) {
     await deactivateEnvironment(github, context);
   }
 
@@ -59,10 +58,7 @@ async function createFinish(
     environment_url: newStatus === "success" ? stepArgs.envURL : "",
     // set log_url to action by default
     log_url: logsURL,
-    // if we are overriding previous deployments, let GitHub deactivate past
-    // deployments for us as a fallback, or see if a user explicitly wants to
-    // use this feature.
-    auto_inactive: stepArgs.override || stepArgs.autoInactive,
+    auto_inactive: false,
   });
 
   log.info(`${stepArgs.deploymentID} status set to ${newStatus}`, {

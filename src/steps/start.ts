@@ -4,8 +4,8 @@ import { DeploymentContext } from "../lib/context";
 import deactivateEnvironment from "../lib/deactivate";
 
 export type StartArgs = {
+  autoDeactivate: boolean;
   deploymentID?: string;
-  override: boolean;
   payload?: { [key: string]: any };
 };
 
@@ -14,7 +14,7 @@ async function createStart(
   context: DeploymentContext,
   stepArgs: StartArgs
 ) {
-  if (stepArgs.override) {
+  if (stepArgs.autoDeactivate) {
     await deactivateEnvironment(github, context);
   }
 
@@ -65,6 +65,7 @@ async function createStart(
     log_url: logsURL,
     description: description,
     ref: ref,
+    auto_inactive: false,
   });
   log.info(`created deployment status ${statusID} with status "in_progress"`);
 

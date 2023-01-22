@@ -7,12 +7,13 @@ import { DeploymentContext } from "./context";
  */
 async function deactivateEnvironment(
   github: InstanceType<typeof GitHub>,
-  { log, owner, repo, coreArgs: { environment } }: DeploymentContext
+  { log, owner, repo, ref, coreArgs: { environment } }: DeploymentContext
 ) {
   const deployments = await github.rest.repos.listDeployments({
     owner,
     repo,
     environment,
+    ref,
     per_page: 100,
   });
   const existing = deployments.data.length;

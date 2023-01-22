@@ -38,7 +38,7 @@ export async function run(
           }
           const stepArgs: StartArgs = {
             deploymentID: getOptionalInput("deployment_id"),
-            override: getBooleanInput("override", false), // default to false on start
+            autoDeactivate: getBooleanInput("auto_deactivate", false), // default to false on start
             payload,
           };
           log.debug(`'${step}' arguments`, {
@@ -63,8 +63,7 @@ export async function run(
             status: getRequiredInput("status").toLowerCase(),
             deploymentID: getRequiredInput("deployment_id"),
             envURL: getOptionalInput("env_url"),
-            override: getBooleanInput("override", true), // default to true on finish
-            autoInactive: getBooleanInput("auto_inactive", false),
+            autoDeactivate: getBooleanInput("auto_deactivate", true), // default to true on finish
           };
           log.debug(`'${step}' arguments`, {
             stepArgs,
